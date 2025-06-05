@@ -1,9 +1,9 @@
-API Endpoints
+# API Endpoints
 
 Base URL: http://localhost:8080/animals
 
 
-1. / (GET)
+##1. / (GET)
 
 Gets a list of all animals in the database.
 
@@ -31,7 +31,7 @@ Response — A JSON array of Animal objects:
 </pre>
 
 
-2. /{animalId} (GET)
+## 2. /{animalId} (GET)
 
 Gets a single animal by its ID.
 
@@ -52,7 +52,7 @@ Response — A single Animal object:
 
 
 
-3. /name (GET)
+## 3. /name (GET)
 
 Gets animals whose names contain the given string.
 
@@ -75,7 +75,7 @@ Response — A JSON array of Animal objects:
 
 
 
-4. /habitat/{habitat} (GET)
+## 4. /habitat/{habitat} (GET)
 
 Gets animals that match a specific habitat string.
 
@@ -98,7 +98,7 @@ Response — A JSON array of Animal objects:
 
 
 
-5. / (POST)
+## 5. / (POST)
 
 Creates a new animal entry.
 
@@ -130,7 +130,7 @@ Response — The newly created Animal:
 
 
 
-6. /{animalId} (PUT)
+## 6. /{animalId} (PUT)
 
 Updates an existing animal.
 
@@ -164,7 +164,7 @@ Response — The updated Animal:
 
 
 
-7. /{animalId} (DELETE)
+## 7. /{animalId} (DELETE)
 
 Deletes an animal from the database.
 
