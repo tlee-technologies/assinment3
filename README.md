@@ -40,7 +40,6 @@ Path Variable: animalId <Long> – REQUIRED
 Response — A single Animal object:
 
 <pre>
-```json
 {
   "animalId": 1,
   "name": "Black Bear",
@@ -49,7 +48,6 @@ Response — A single Animal object:
   "diet": "Berries, insects, small mammals",
   "imageUrl": "images/Black-Bear.jpg"
 }
-```
 </pre>
 
 
@@ -63,7 +61,6 @@ Query Parameter: search <String> – REQUIRED
 Response — A JSON array of Animal objects:
 
 <pre>
-```json
 [
   {
     "animalId": 2,
@@ -74,7 +71,6 @@ Response — A JSON array of Animal objects:
     "imageUrl": "images/Red-Fox.jpg"
   }
 ]
-```
 </pre>
 
 
@@ -88,7 +84,6 @@ Path Variable: habitat <String> – REQUIRED
 Response — A JSON array of Animal objects:
 
 <pre>
-```json
 [
   {
     "animalId": 3,
@@ -99,7 +94,6 @@ Response — A JSON array of Animal objects:
     "imageUrl": "images/Eastern-Box-Turtle.jpeg.webp"
   }
 ]
-```
 </pre>
 
 
@@ -111,7 +105,6 @@ Creates a new animal entry.
 Request Body:
 
 <pre>
-```json
 {
   "name": "Barred Owl",
   "description": "Known for its 'who-cooks-for-you' call",
@@ -119,14 +112,12 @@ Request Body:
   "diet": "Small mammals, birds, amphibians",
   "imageUrl": "images/Barred-Owl.jpg"
 }
-```
 </pre>
 
 
 Response — The newly created Animal:
 
 <pre>
-```json
 {
   "animalId": 6,
   "name": "Barred Owl",
@@ -135,7 +126,6 @@ Response — The newly created Animal:
   "diet": "Small mammals, birds, amphibians",
   "imageUrl": "images/Barred-Owl.jpg"
 }
-```
 </pre>
 
 
@@ -149,7 +139,6 @@ Path Variable: animalId <Long> – REQUIRED
 Request Body:
 
 <pre>
-```json
 {
   "name": "Updated Owl",
   "description": "Updated description",
@@ -157,14 +146,12 @@ Request Body:
   "diet": "Rodents",
   "imageUrl": "images/Updated-Owl.jpg"
 }
-```
 </pre>
 
 
 Response — The updated Animal:
 
 <pre>
-```json
 {
   "animalId": 6,
   "name": "Updated Owl",
@@ -173,7 +160,6 @@ Response — The updated Animal:
   "diet": "Rodents",
   "imageUrl": "images/Updated-Owl.jpg"
 }
-```
 </pre>
 
 
