@@ -10,7 +10,6 @@ Gets a list of all animals in the database.
 Response — A JSON array of Animal objects:
 
 <pre>
-```json
 [
   {
     "animalId": 1,
@@ -29,7 +28,6 @@ Response — A JSON array of Animal objects:
     "imageUrl": "images/Red-Fox.jpg"
   }
 ]
-```
 </pre>
 
 
