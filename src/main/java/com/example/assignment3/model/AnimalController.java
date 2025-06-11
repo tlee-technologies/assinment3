@@ -1,97 +1,90 @@
 package com.example.assignment3.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-/**
- * AnimalController is a REST controller that handles HTTP requests related to
- * animals. It provides endpoints for CRUD operations and search filters.
- */
-@RestController
-@RequestMapping("/animals")
+@Controller
 public class AnimalController {
 
     @Autowired
     private AnimalService service;
 
-    /**
-     * Get all animals
-     * @return List of all animals
-     */
-    @GetMapping
-    public ResponseEntity<List<Animal>> getAllAnimals() {
-        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    // List animals
+    @GetMapping("/animals")
+    public String getAllAnimals(Model model) {
+        model.addAttribute("animalsList", service.getAll());
+        model.addAttribute("title", "All Animals");
+        return "animals-list";
     }
 
-    /**
-     * Get an animal by ID
-     * @param id the animal ID
-     * @return animal with matching ID
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<Animal> getById(@PathVariable Long id) {
+    // Show animal details
+    @GetMapping("/animals/{id}")
+    public String getAnimalById(@PathVariable Long id, Model model) {
         Animal animal = service.getById(id);
-        return (animal != null)
-                ? new ResponseEntity<>(animal, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (animal == null) {
+            return "redirect:/animals";
+        }
+        model.addAttribute("animal", animal);
+        model.addAttribute("title", "Animal Details");
+        return "animal-details";
     }
 
-    /**
-     * Get animals by partial name match
-     * @param search partial name
-     * @return matching animals
-     */
-    @GetMapping("/name")
-    public ResponseEntity<List<Animal>> getByName(@RequestParam String search) {
-        return new ResponseEntity<>(service.getByName(search), HttpStatus.OK);
+    // Search by name
+    @GetMapping("/animals/name")
+    public String getAnimalsByName(@RequestParam String search, Model model) {
+        model.addAttribute("animalsList", service.getByName(search));
+        model.addAttribute("title", "Animals Matching: " + search);
+        return "animals-list";
     }
 
-    /**
-     * Get animals by habitat
-     * @param habitat exact match
-     * @return matching animals
-     */
-    @GetMapping("/habitat/{habitat}")
-    public ResponseEntity<List<Animal>> getByHabitat(@PathVariable String habitat) {
-        return new ResponseEntity<>(service.getByHabitat(habitat), HttpStatus.OK);
+    // Filter by habitat
+    @GetMapping("/animals/habitat/{habitat}")
+    public String getAnimalsByHabitat(@PathVariable String habitat, Model model) {
+        model.addAttribute("animalsList", service.getByHabitat(habitat));
+        model.addAttribute("title", "Animals in Habitat: " + habitat);
+        return "animals-list";
     }
 
-    /**
-     * Create a new animal entry
-     * @param animal request body
-     * @return created animal
-     */
-    @PostMapping
-    public ResponseEntity<Animal> create(@RequestBody Animal animal) {
-        return new ResponseEntity<>(service.create(animal), HttpStatus.CREATED);
+    // Show create form
+    @GetMapping("/animals/createForm")
+    public String showCreateForm(Model model) {
+        model.addAttribute("animal", new Animal());
+        model.addAttribute("title", "Create New Animal");
+        return "animals-create";
     }
 
-    /**
-     * Update an existing animal
-     * @param id animal ID to update
-     * @param animal updated values
-     * @return updated animal
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<Animal> update(@PathVariable Long id, @RequestBody Animal animal) {
-        Animal updated = service.update(id, animal);
-        return (updated != null)
-                ? new ResponseEntity<>(updated, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // Handle create form submission
+    @PostMapping("/animals")
+    public String createAnimal(@ModelAttribute Animal animal) {
+        service.create(animal);
+        return "redirect:/animals";
     }
 
-    /**
-     * Delete an animal by ID
-     * @param id ID to delete
-     * @return updated list of animals
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<List<Animal>> delete(@PathVariable Long id) {
+    // Show update form
+    @GetMapping("/animals/updateForm/{id}")
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        Animal animal = service.getById(id);
+        if (animal == null) {
+            return "redirect:/animals";
+        }
+        model.addAttribute("animal", animal);
+        model.addAttribute("title", "Update Animal");
+        return "animals-update";
+    }
+
+    // Handle update form submission
+    @PostMapping("/animals/update/{id}")
+    public String updateAnimal(@PathVariable Long id, @ModelAttribute Animal animal) {
+        service.update(id, animal);
+        return "redirect:/animals";
+    }
+
+    // Delete animal
+    @GetMapping("/animals/delete/{id}")
+    public String deleteAnimal(@PathVariable Long id) {
         service.delete(id);
-        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+        return "redirect:/animals";
     }
 }
