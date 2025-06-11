@@ -27,13 +27,14 @@ public class AnimalService {
         return repository.findByHabitat(habitat);
     }
 
-    public Animal create(Animal animal) {
-        return repository.save(animal);
-    }
+public Animal create(Animal animal) {
+    return repository.save(animal);
+}
 
     public Animal update(Long id, Animal updatedAnimal) {
         Animal existing = repository.findById(id).orElse(null);
-        if (existing == null) return null;
+        if (existing == null)
+            return null;
 
         existing.setName(updatedAnimal.getName());
         existing.setDescription(updatedAnimal.getDescription());

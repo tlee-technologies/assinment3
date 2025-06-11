@@ -11,6 +11,12 @@ public class AnimalController {
     @Autowired
     private AnimalService service;
 
+    // Redirect root path to animals list
+    @GetMapping("/")
+    public String redirectToAnimalsList() {
+        return "redirect:/animals";
+    }
+
     // List animals
     @GetMapping("/animals")
     public String getAllAnimals(Model model) {
